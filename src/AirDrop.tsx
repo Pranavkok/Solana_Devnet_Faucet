@@ -3,6 +3,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { useConnection } from '@solana/wallet-adapter-react'
 import { LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { WalletDisconnectButton, WalletMultiButton } from '@solana/wallet-adapter-react-ui'
+import Balance from './Balance';
 
 const AirDrop = () => {
     const wallet = useWallet();
@@ -44,6 +45,7 @@ const AirDrop = () => {
             <div className="relative z-10 w-full max-w-2xl">
                 {/* Wallet buttons */}
                 <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-3 mb-6 sm:mb-8">
+                    <Balance/>
                     <WalletMultiButton className="!bg-gradient-to-r !from-purple-600 !to-blue-600 hover:!from-purple-700 hover:!to-blue-700 !rounded-lg !px-4 sm:!px-6 !py-2 sm:!py-3 !font-semibold !transition-all !duration-300 !text-sm sm:!text-base" />
                     <WalletDisconnectButton className="!bg-red-600 hover:!bg-red-700 !rounded-lg !px-4 sm:!px-6 !py-2 sm:!py-3 !font-semibold !transition-all !duration-300 !text-sm sm:!text-base" />
                 </div>
