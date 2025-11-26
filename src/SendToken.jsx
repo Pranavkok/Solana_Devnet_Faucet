@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useConnection } from '@solana/wallet-adapter-react'
-import { LAMPORTS_PER_SOL } from '@solana/web3.js'
+import { LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from '@solana/web3.js'
 
-const AirDrop = () => {
+const SendToken = () => {
     const wallet = useWallet();
     const {connection} = useConnection();
     const [amount, setAmount] = useState(0);
+    const [address,setAddress] = useState("");
     const [loader, setLoader] = useState(false);
 
     async function sendSol(){
@@ -17,14 +18,19 @@ const AirDrop = () => {
 
         try {
             setLoader(true);
-            await connection.requestAirdrop(
-                wallet.publicKey, 
-                amount * LAMPORTS_PER_SOL
-            );
-            alert("Air Dropped Success");
+            const transaction = new Transaction();
+            transaction.add(
+                SystemProgram.transfer({
+                    fromPubkey: wallet.publicKey,
+                    toPubkey: new PublicKey (address),
+                    lamports: amount * 1000000000,
+                })
+            )
+            await wallet.sendTransaction(transaction,connection);
+            alert(`Sent ${amount} SOL to ${address} Successfully`)
         } catch (error) {
             console.log(error);
-            alert("Airdrop failed");
+            alert("Error" + error);
         } finally {
             setLoader(false);
         }
@@ -38,7 +44,7 @@ const AirDrop = () => {
                         SOLANA
                     </h1>
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-transparent bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text">
-                        FAUCET
+                            SEND SOL
                     </h2>
                     <div className="mt-3 sm:mt-4 flex items-center justify-center gap-2">
                         <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-transparent via-purple-500 to-transparent"></div>
@@ -58,17 +64,28 @@ const AirDrop = () => {
                 <div className="space-y-4 sm:space-y-6">
                     <div>
                         <label className="block text-purple-300 text-xs sm:text-sm font-semibold mb-2 sm:mb-3 uppercase tracking-wider">
-                            Enter Amount (SOL)
+                            Enter a Address
+                        </label>
+                        <input 
+                            onChange={(e) => setAddress(e.target.value)} 
+                            type="text" 
+                            placeholder="0x....."
+                            className="w-full bg-black bg-opacity-50 border-2 border-purple-500 border-opacity-50 rounded-xl px-4 sm:px-6 py-3 sm:py-4 text-white text-xl sm:text-2xl font-bold placeholder-gray-500 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400 focus:ring-opacity-50 transition-all duration-300"
+                        />
+                        <p className="text-gray-400 text-xs mt-2">enter the correct address to whom you want to send SOL</p>
+                    </div>
+                    <div>
+                        <label className="block text-purple-300 text-xs sm:text-sm font-semibold mb-2 sm:mb-3 uppercase tracking-wider">
+                            Enter a Amount
                         </label>
                         <input 
                             onChange={(e) => setAmount(Number(e.target.value))} 
-                            type="number" 
-                            placeholder="0.0"
+                            type="Number" 
+                            placeholder="0.00"
                             className="w-full bg-black bg-opacity-50 border-2 border-purple-500 border-opacity-50 rounded-xl px-4 sm:px-6 py-3 sm:py-4 text-white text-xl sm:text-2xl font-bold placeholder-gray-500 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400 focus:ring-opacity-50 transition-all duration-300"
-                            step="0.1"
-                            min="0"
+                            min={0}
                         />
-                        <p className="text-gray-400 text-xs mt-2">Max: 5 SOL per request on Devnet</p>
+                        <p className="text-gray-400 text-xs mt-2">min amount should be greater than 0</p>
                     </div>
 
                     <button 
@@ -87,27 +104,16 @@ const AirDrop = () => {
                                 </>
                             ) : (
                                 <>
-                                    <span className="text-lg sm:text-xl">🚀</span>
-                                    Request Airdrop
+                                   Send SOL
                                 </>
                             )}
                         </span>
                         <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </button>
                 </div>
-
-                <div className="mt-8 p-4 bg-blue-900 bg-opacity-20 rounded-lg border border-blue-500 border-opacity-30">
-                    <div className="flex items-start gap-3">
-                        <span className="text-2xl">ℹ️</span>
-                        <div className="text-sm text-blue-300">
-                            <p className="font-semibold mb-1">Devnet Faucet</p>
-                            <p className="text-xs text-gray-400">This faucet provides test SOL on Solana Devnet. Tokens have no real value and are used for development purposes only.</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </>
     )
 }
 
-export default AirDrop
+export default SendToken

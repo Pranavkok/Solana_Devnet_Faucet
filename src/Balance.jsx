@@ -32,7 +32,7 @@ function Balance() {
     }, [publicKey, fetchBalance]);
 
     return (
-        <div className="flex items-center gap-2 bg-black bg-opacity-50 backdrop-blur-xl rounded-lg p-2 border border-purple-500 border-opacity-30 text-white font-semibold">
+        <div className=" w-full justify-between flex items-center gap-2 bg-black bg-opacity-50 backdrop-blur-xl rounded-lg p-2 border border-purple-500 border-opacity-30 text-white font-semibold">
             <span>Balance: {balance.toFixed(4)} SOL</span>
             <button 
                 onClick={fetchBalance}
