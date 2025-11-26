@@ -1,16 +1,54 @@
-# React + Vite
+# Solana Faucet
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a simple Solana faucet that allows users to airdrop devnet SOL to their wallets and send SOL to other wallets. It is a React application built with Vite and uses the Solana wallet adapter for wallet connectivity.
 
-Currently, two official plugins are available:
+## What the project does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The Solana Faucet provides a user-friendly interface for interacting with the Solana devnet. It allows users to:
 
-## React Compiler
+- Connect their Solana wallet.
+- Airdrop devnet SOL to their connected wallet.
+- Send devnet SOL to any Solana address.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Why the project is useful
 
-## Expanding the ESLint configuration
+This project is useful for developers who are building and testing applications on the Solana devnet. It provides a simple and convenient way to get devnet SOL without having to use the command line or other more complex tools.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## How users can get started
+
+To get started with this project, you will need to have Node.js and npm installed.
+
+1.  Clone the repository:
+
+    ```bash
+    git clone https://github.com/your-username/solana-faucet.git
+    ```
+
+2.  Install the dependencies:
+
+    ```bash
+    cd solana-faucet
+    npm install
+    ```
+
+3.  Create a `.env` file in the root of the project and add the following environment variable:
+
+    ```
+    VITE_RPC_URL=https://api.devnet.solana.com
+    ```
+
+4.  Start the development server:
+
+    ```bash
+    npm run dev
+    ```
+
+5.  Open your browser and navigate to `http://localhost:5173` to use the faucet.
+
+## Where users can get help
+
+For help with this project, please open an issue on the GitHub repository.
+
+## Who maintains and contributes
+
+This project is maintained by the project owner. Contributions are welcome! Please open a pull request with any changes.
