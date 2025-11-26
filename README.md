@@ -21,7 +21,7 @@ To get started with this project, you will need to have Node.js and npm installe
 1.  Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/solana-faucet.git
+    git clone https://github.com/Pranavkok/Solana_Devnet_Faucet.git
     ```
 
 2.  Install the dependencies:
